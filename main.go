@@ -23,7 +23,7 @@ func buy(state *MachineState, recipe Recipe) {
 }
 
 func printState(m MachineState) {
-	f.Printf("The coffee machine has: \n%d of water \n%d of milk\n%d of coffee beans\n%d disposable cups\n$%d of money\n", m.water, m.milk, m.beans, m.cups, m.money)
+	f.Printf("\nThe coffee machine has:\n%d ml of water\n%d ml of milk\n%d g of coffee beans\n%d disposable cups\n$%d of money\n", m.water, m.milk, m.beans, m.cups, m.money)
 }
 
 func fill(state *MachineState) {
@@ -32,7 +32,7 @@ func fill(state *MachineState) {
 	f.Scan(&water)
 	f.Println("Write how many ml of milk you want to add:")
 	f.Scan(&milk)
-	f.Println("Write how many grams of coffe beans you want to add:")
+	f.Println("Write how many grams of coffee beans you want to add:")
 	f.Scan(&beans)
 	f.Println("Write how many disposable cups you want to add:")
 	f.Scan(&cups)
@@ -42,10 +42,15 @@ func fill(state *MachineState) {
 	state.cups += cups
 }
 
+func take(state *MachineState) {
+	f.Printf("I gave you $%d\n\n", state.money)
+	state.money = 0
+}
+
 func main() {
 	var state = MachineState{water: 400, milk: 540, beans: 120, cups: 9, money: 550}
 	printState(state)
-	f.Println("Write action (buy, fill, take): ")
+	f.Println("\nWrite action (buy, fill, take):")
 	var input string
 	f.Scan(&input)
 	switch input {
@@ -64,6 +69,7 @@ func main() {
 	case "fill":
 		fill(&state)
 	case "take":
+		take(&state)
 	}
 	printState(state)
 }
