@@ -26,6 +26,22 @@ func printState(m MachineState) {
 	f.Printf("The coffee machine has: \n%d of water \n%d of milk\n%d of coffee beans\n%d disposable cups\n$%d of money\n", m.water, m.milk, m.beans, m.cups, m.money)
 }
 
+func fill(state *MachineState) {
+	var water, milk, beans, cups int
+	f.Println("Write how many ml of water you want to add:")
+	f.Scan(&water)
+	f.Println("Write how many ml of milk you want to add:")
+	f.Scan(&milk)
+	f.Println("Write how many grams of coffe beans you want to add:")
+	f.Scan(&beans)
+	f.Println("Write how many disposable cups you want to add:")
+	f.Scan(&cups)
+	state.water += water
+	state.milk += milk
+	state.beans += beans
+	state.cups += cups
+}
+
 func main() {
 	var state = MachineState{water: 400, milk: 540, beans: 120, cups: 9, money: 550}
 	printState(state)
@@ -46,6 +62,7 @@ func main() {
 			buy(&state, capp)
 		}
 	case "fill":
+		fill(&state)
 	case "take":
 	}
 	printState(state)
